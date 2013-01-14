@@ -18,6 +18,21 @@
 
 		<link rel="stylesheet" href="css/theme/fourkitchens.css" >
 
+		<style>
+		  .left-col,
+		  .right-col {
+  		  width: 50%;
+  		  margin-right: 0%;
+  		  float: left;
+		  }
+
+		  .right-col {
+  		  margin-right: 0;
+		  }
+
+
+		</style>
+
 		<!-- For syntax highlighting -->
 		<link rel="stylesheet" href="lib/css/github.css">
 
@@ -40,6 +55,9 @@
 
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
+
+			<!-- Introduction and such -->
+
 				<section>
 					<h1>Power-theming for Drupal</h1>
 					<h3>Sass, Compass, Aurora, and Corona</h3>
@@ -54,6 +72,146 @@
         </section>
 
         <section>
+          <h2>What is Sass?</h2>
+          <ul class="what-is-sass">
+            <li class="fragment">Sass is a language construct to create CSS</li>
+            <li class="fragment">It is an easier way to write awesome CSS</li>
+          </ul>
+          <br />
+          <br />
+          <h2 class="fragment">What is Compass?</h2>
+          <ul class="what-is-compass">
+            <li class="fragment">Compass is a framework built with Sass</li>
+            <li class="fragment">It has an amazing set of tools and extensions to write really awesome CSS</li>
+          </ul>
+          <br />
+          <br />
+          <br />
+          <h3 class="fragment">Sass is to PHP like Compass is to Drupal</h3>
+        </section>
+
+        <section>
+          <h2>Compass extensions</h2>
+          <p>Compass is built to allow extensions to be built off of it. Similar to Drupal modules, each of these provides some extra functionality.
+          <ul class="compass-extensions fragment">
+            <li><b>Susy</b> - A responsive grid system</li>
+            <li><b>Breakpoint</b> - Easily create media queries within your CSS</li>
+            <li><b>Respond-to</b> - A wrapper for breakpoint, simplifies media query creation even further</li>
+            <li><b>Aurora</b> - Generates an aurora sub-theme for you. (similar to zen's starterkit theme)</li>
+          </ul>
+        </section>
+
+        <!-- Sass / Compass -->
+
+        <section>
+          <h2>Writing some Sass</h2>
+
+          <section>
+            <p>Variables, nesting, inheritance</p>
+            <div class="left-col">
+              <h4 class="red">Sass</h4>
+
+              <pre><code contenteditable>
+$green: #66B360;
+
+ul.list {
+  margin-top: 1em;
+
+  li {
+    list-style-type: none;
+    color: $green;
+
+    &:nth-child(even) {
+      color: darken($green, 20%);
+    }
+  }
+}
+              </code></pre>
+            </div>
+
+            <div class="right-col">
+              <h4 class="red">CSS</h4>
+
+              <pre><code contenteditable>
+ul.list {
+  margin-top: 1em;
+}
+
+ul.list li {
+  list-style-type: none;
+  color: #66B360;
+}
+
+ul.list li:nth-child(even) {
+  color: #3C7538;
+}
+              </code></pre>
+            </div>
+          </section>
+          <section>
+            <p>Commenting</p>
+            <div class="left-col">
+              <h4 class="red">Sass</h4>
+
+              <pre><code contenteditable>
+/**
+ * Standard CSS commenting.
+ * This will display
+ */
+
+
+// Sass inline commenting.
+// This won't display.
+
+.redness {
+  color: $red; // We make this red so it is red.
+}
+              </code></pre>
+            </div>
+
+            <div class="right-col">
+              <h4 class="red">CSS</h4>
+
+              <pre><code contenteditable>
+/**
+ * Standard CSS commenting, will display
+ */
+
+.redness {
+  color: #FF0000;
+}
+
+              </code></pre>
+            </div>
+          </section>
+
+          <section>
+            <p>Partials</p>
+
+            <div class="left-col">
+              <h4 class="red">Sass</h4>
+
+              <pre><code contenteditable>
+@import 'my_stylesheet';
+              </code></pre>
+            </div>
+
+            <div class="right-col">
+              <p>The code on the right will pull in the file "my_stylesheet.scss" (or "_my_stylesheet.scss") into your stylesheet, and include it in a single file.</p>
+              <p>Compass will not compile any .scss file with an underscore before it, so you can have as many lower "partials" that each have a small piece of the styling you want.</p>
+              <p class="fragment">The Corona distribution of Aurora contains the partial structure we will be using going forward</p>
+            </div>
+
+          </section>
+        </section>
+
+        <section>
+          <h2>TO THE CODE!</h2>
+        </section>
+
+
+
+        <!-- Endgame -->
 
 				<section>
 					<h1>THE END</h1>
