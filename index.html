@@ -97,6 +97,7 @@
             <li><b>Susy</b> - A responsive grid system</li>
             <li><b>Breakpoint</b> - Easily create media queries within your CSS</li>
             <li><b>Respond-to</b> - A wrapper for breakpoint, simplifies media query creation even further</li>
+            <li><b>Normalize</b> - Inserts Normalize.css into your CSS</li>
             <li><b>Aurora</b> - Generates an aurora sub-theme for you. (similar to zen's starterkit theme)</li>
           </ul>
         </section>
@@ -216,13 +217,70 @@ compass watch
           <h2>TO THE CODE!</h2>
         </section>
 
+        <!-- This section will look at the code and partials and specific practical examples -->
+        <!-- We will go over the partial structure, mixins, functions, extendables and variables -->
+        <!-- Also, go into breakpoint/respond-to, and susy -->
+
+
+        <!-- Aurora / Corona -->
+        <section>
+          <h2>Aurora</h2>
+          <a href="http://drupal.org/project/aurora">drupal.org/project/aurora</a>
+          <p>Aurora is a powerful base theme that will provide you with HTML5 templates, cleans core css, provides helpful settings, helps with JavaScript organization... and nothing more.</p>
+          <p>It is built to be a great starting point to create a custom theme, and not a huge frameworks you have to work against.</p>
+        </section>
+
+        <section>
+          <h2>Corona</h2>
+          <section>
+            <p><a href="https://github.com/ChinggizKhan/Corona/">github.com/ChinggizKhan/Corona</a></p>
+            <p>Corona is just a sub-theme distribution that will start your theme building with an awesome Sass partial structure.</p>
+            <p>The bulk of every Aurora sub-theme (from the compass extension) is the same. The only difference is the partial structure.</p>
+          </section>
+
+          <section>
+            <h4>Using a Aurora / Corona Sub-theme</h4>
+            <pre><code>compass create THEME_NAME -r aurora --using aurora/corona</code></pre>
+            <br>
+            <div class="fragment">
+              <p>OR to make the little kittens happy:</p>
+              <pre><code>compass create THEME_NAME -r aurora --using aurora/corona --sass-dir "sass" --css-dir "css" --javascripts-dir "js" --images-dir "img"</code></pre>
+            </div>
+          </section>
+
+          <section>
+            <h4>Partial Structure</h4>
+            <ul>
+              <li>Base - Non-css producing files, always added. Variables, mixins, and functions.</li>
+              <br>
+              <li>Global - Side-wide css. Typeface, forms, <i>extendables</i>.</li>
+              <br>
+              <li>Design - Everything else. </li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>Partial Structure</h4>
+            <p>Base and Global already have within it a variables and files to start you off, but nothing too complex. Design is completely empty and just waiting for you to start designing.</p>
+          </section>
+        </section>
 
 
         <!-- Endgame -->
 
 				<section>
-					<h1>THE END</h1>
-					<h3>BY Hakim El Hattab / hakim.se</h3>
+				<h1>Fin</h1>
+				  <h3>BY Ian Carrico</h3>
+
+					<ul class="helping-links fragment">
+  				  <li>Sass <a href="http://sass-lang.com/">sass-lang.com</a></li>
+  				  <li>Compass <a href="http://compass-style.org/">compass-style.org</a></li>
+  				  <li>Susy <a href="http://susy.oddbird.net/">susy.oddbird.net</a></li>
+  				  <li>Aurora<a href="http://drupal.org/project/aurora">drupal.org/project/aurora</a></li>
+  				  <li><a href="http://fourkitchens.com/blog/2012/11/13/compass-aurora-and-corona-oh-my">My Compass / Aurora Blog</a></li>
+  				  <li>GitHub Repo <a href="https://github.com/ChinggizKhan/power-theming-drupal">github.com/ChinggizKhan/power-theming-drupal</a></li>
+					</ul>
+
 				</section>
 			</div>
 
