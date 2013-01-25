@@ -72,14 +72,26 @@
         </section>
 
         <section>
-          <h2>What is Sass?</h2>
+          <h2>The Problem</h2>
+          <h4 class="fragment">Writing CSS sucks.</h4>
+          <ul class="fragment">
+            <li>It is impossible to keep your stylesheets organized</li>
+            <li>Changing colors, or fonts specified in multiple places is terrible</li>
+            <li>Keeping a single style.css file under version control will almost always result in merge conflicts when multiple people are working</li>
+          </ul>
+          <br><br>
+          <h3 class="fragment">Luckily, there is a better way.</h3>
+        </section>
+
+        <section>
+          <h2>Introducing Sass</h2>
           <ul class="what-is-sass">
             <li class="fragment">Sass is a language construct to create CSS</li>
             <li class="fragment">It is an easier way to write awesome CSS</li>
           </ul>
           <br />
           <br />
-          <h2 class="fragment">What is Compass?</h2>
+          <h2 class="fragment">Along with Compass</h2>
           <ul class="what-is-compass">
             <li class="fragment">Compass is a framework built with Sass</li>
             <li class="fragment">It has an amazing set of tools and extensions to write really awesome CSS</li>
@@ -88,6 +100,12 @@
           <br />
           <br />
           <h3 class="fragment">Sass is to PHP like Compass is to Drupal</h3>
+        </section>
+
+        <section>
+          <h2>A few important things...</h2>
+          <p>There are TWO was to write Sass. .sass files and .scss files. We are using .scss. (.sass relies on spacing, which for larger partials is not always desirable).</p>
+          <p>We are using the compass command line scripts to compile our .scss files into .css.</p>
         </section>
 
         <section>
@@ -108,22 +126,38 @@
           <h2>Writing some Sass</h2>
 
           <section>
-            <p>Variables, nesting, inheritance</p>
+            <p>Compiling Sass to CSS</p>
+
+            <p>To run once:</p>
+            <pre><code>
+compass compile
+            </code></pre>
+
+            <p>To have compass monitor changes in your partials</p>
+            <pre><code>
+compass watch
+            </code></pre>
+
+          </section>
+
+          <section>
+            <p>Nesting and Inheritance</p>
             <div class="left-col">
               <h4 class="red">Sass</h4>
 
               <pre><code contenteditable>
-$green: #66B360;
-
 ul.list {
   margin-top: 1em;
 
   li {
     list-style-type: none;
-    color: $green;
 
     &:nth-child(even) {
-      color: darken($green, 20%);
+      margin-bottom: 1em;
+    }
+
+    .svg & {
+      list-style-type: url(image.svg);
     }
   }
 }
@@ -140,11 +174,14 @@ ul.list {
 
 ul.list li {
   list-style-type: none;
-  color: #66B360;
 }
 
 ul.list li:nth-child(even) {
-  color: #3C7538;
+  margin-bottom: 1em;
+}
+
+.svg ul.list li {
+  list-style-type: url(image.svg);
 }
               </code></pre>
             </div>
@@ -187,39 +224,283 @@ ul.list li:nth-child(even) {
           </section>
 
           <section>
-            <p>Partials</p>
+            <p>Variables</p>
+            <div class="left-col">
+              <h4 class="red">Sass</h4>
+              <pre><code contenteditable>
+$green: #66B360;
+$verdana: Verdana, Tahoma, "DejaVu Sans", sans-serif;
+$legacy-support-for-ie8: true;
+$base-size: 16px;
+$base-line-height: 1em;
+              </code></pre>
 
-            <p>Compass will not compile any .scss file with an underscore before it, so you can have as many lower "partials" that each have a small piece of the styling you want.</p>
+              <pre class="fragment"><code contenteditable>
+h1 {
+  font-size: $base-size * 2;
+}
+h4 {
+  font-size: $base-size + 4px;
+}
+              </code></pre>
+            </div>
+            <div class="right-col">
+              <h4 class="red">Types</h4>
+              <ul>
+                <li>Colors</li>
+                <li>Font families (or text)</li>
+                <li>Boolean (true/false)</li>
+                <li>Pixel values</li>
+                <li>Em values</li>
+              </ul>
+              <pre class="fragment"><code contenteditable>
+h1 {
+  font-size: 32px;
+}
+h4 {
+  font-size: 20px;
+}
+              </code></pre>
+            </div>
+          </section>
 
-            <p>By having an "@import 'file_name'; " in your Sass file "file_name.scss" (or "_file_name.scss") into your stylesheet, and include it in a single file.</p>
+          <section>
+            <p>Functions</p>
+            <p>Functions are just like PHP, they return a value of some kind.</p>
+            <pre><code contenteditable>
+@function pixel-to-em($pixel, $font-size: 16px) {
+  @return $pixel / $font-size * 1em;
+}
 
-            <p class="fragment">The Corona distribution of Aurora contains the partial structure we will be using going forward</p>
+.testin {
+  font-size: pixel-to-em(25px, 20px);
+}
+            </code></pre>
+            <br><br>
+            <h4 class="fragment">I have never once needed a function</h4>
 
           </section>
 
           <section>
-            <p>Compiling Sass to CSS</p>
+          <p>Mixins</p>
+            <p>Mixins are similar to functions, except they return blocks of CSS</p>
 
-            <p>To run once:</p>
-            <pre><code>
-compass compile
-            </code></pre>
+            <pre><code contenteditable>
+@mixin button-make($color: #66B360) {
+  @include border-radius(5px);
+  background-color: $color;
+  border: 2px solid lighten($color, 20%);
+}
 
-            <p>To have compass monitor changes in your partials</p>
-            <pre><code>
-compass watch
+.button-one {
+  @include button-make;
+}
+
+.button-two {
+  @include button-make($color-facebook);
+}
             </code></pre>
 
           </section>
+
+          <section>
+            <p>Extendables</p>
+            <div class="left-col">
+              <h4 class="red">Sass</h4>
+              <pre><code contenteditable>
+.duru {
+  font-family: 'duru-sans', 'sans-serif';
+}
+
+#page-title {
+  @extend .duru;
+  font-size: 2em;
+}
+              </code></pre>
+            </div>
+            <div class="right-col">
+              <h4 class="red">CSS</h4>
+              <pre><code contenteditable>
+.duru, #page-title {
+  font-family: duru-sans, sans-serif;
+}
+
+#page-title {
+  font-size: 2em;
+}
+              </code></pre>
+            </div>
+          </section>
+
+          <section>
+            <p>Partials</p>
+            <p>Partials allow you to better organize files by having many small files each with their own section of code.</p>
+            <p>By default, Compass will only compile files that do NOT begin with an underscore, therefore all partials files that should not be compiled individually will have an underscore in front of it.</p>
+            <p>By having an "@import 'file_name'; " in your Sass file "file_name.scss" (or "_file_name.scss") into your stylesheet, and include it in a single file.</p>
+            <p class="fragment">The Corona distribution of Aurora contains the partial structure we will be using going forward</p>
+          </section>
         </section>
+
+        <!--- Susy --->
 
         <section>
-          <h2>TO THE CODE!</h2>
+          <h2>Susy</h2>
+
+          <section>
+            <h4>What is Susy?</h4>
+            <p>Susy is a simple, easy way to create a fluid grid layout for your site.</p>
+            <p>You set the number of columns you want, their width, and the gutters inbetween... then susy will handle everything else for you.</p>
+
+          </section>
+
+          <section>
+            <p>Variables</p>
+              <pre><code contenteditable>
+$total-columns          : 12;
+$column-width           : 4em;
+$gutter-width           : 1em;
+$grid-padding           : $gutter-width;
+
+$show-grid-backgrounds  : false;
+              </code></pre>
+          </section>
+
+          <section>
+            <p>Basic usage</p>
+            <pre><code contenteditable>
+#main {
+  @include container;
+  @include susy-grid-background;
+
+  #left {
+    @include span-columns(7);
+  }
+
+  #right {
+    @include span-columns(5 omega);
+  }
+}
+            </code></pre>
+          </section>
+
+          <section>
+            <p>Basic usage CSS</p>
+            <pre><code contenteditable>
+#main {
+  max-width: 59em;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+#main #left {
+  width: 57.62712%;
+  float: left;
+  margin-right: 1.69492%;
+}
+
+#main #right {
+  width: 40.67797%;
+  float: right;
+  margin-right: 0;
+}
+            </code></pre>
+          </section>
+
         </section>
 
-        <!-- This section will look at the code and partials and specific practical examples -->
-        <!-- We will go over the partial structure, mixins, functions, extendables and variables -->
-        <!-- Also, go into breakpoint/respond-to, and susy -->
+        <!--- Respond-to / Breakpoint --->
+
+        <section>
+          <h2>Breakpoint / Respond-to</h2>
+
+          <section>
+            <h4>Media queries done right</h4>
+            <p>Breakpoint writes all your media queries for you, simply and easily.</p>
+            <br>
+            <p>Respond-to is a wrapper for breakpoint. Allowing you to have a single variables that defines all of your media queries.</p>
+          </section>
+
+          <section>
+            <p>Variables</p>
+            <pre><code contenteditable>
+$breakpoints: 'small' 450px,
+              'medium' 700px,
+              'medium only' (700px 899px),
+              'large' 900px;
+            </code></pre>
+
+          </section>
+
+          <section>
+            <p>Writin' MQs like a BOSS</p>
+
+            <pre><code contenteditable>
+#content {
+
+  @include span-columns(12);
+  background-color: yellow;
+
+  @include respond-to('small') {
+    @include span-columns(10);
+    background-color: purple;
+  }
+
+  @include respond-to('medium only') {
+    background-color: salmon;
+  }
+}
+            </code></pre>
+
+          </section>
+
+          <section>
+            <p>Media Query Magic</p>
+            <pre><code contenteditable>
+#content {
+  width: 100%;
+  float: left;
+  margin-right: 1.69492%;
+  background-color: yellow;
+}
+@media (min-width: 450px) {
+  #content {
+    width: 83.05085%;
+    float: left;
+    margin-right: 1.69492%;
+  }
+}
+@media (min-width: 700px) and (max-width: 899px) {
+  #content {
+    background-color: salmon;
+  }
+}
+            </code></pre>
+          </section>
+
+        </section>
+
+        <!--- Normalize.css --->
+
+        <section>
+          <h2>Normalize.css</h2>
+          <div class="left-col">
+            <h4 class="red">Sass</h4>
+            <pre><code contenteditable>
+$legacy-support-for-ie6: false;
+$legacy-support-for-ie7: false;
+$legacy-support-for-ie8: true;
+
+@import 'normalize';
+            </code></pre>
+          </div>
+          <div class="right-col">
+            <h4 class="red">CSS</h4>
+            <p>And it will print out Normalize.css</p>
+          </div>
+
+        </section>
 
 
         <!-- Aurora / Corona -->
@@ -271,6 +552,8 @@ compass watch
 				<section>
 				<h1>Fin</h1>
 				  <h3>BY Ian Carrico</h3>
+
+				  <p>I will do a BoF this afternoon. Follow me <a href="https://twitter.com/iamcarrico">@iamcarrico</a> and I will tweet about it then.</p>
 
 					<ul class="helping-links fragment">
   				  <li>Sass <a href="http://sass-lang.com/">sass-lang.com</a></li>
