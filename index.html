@@ -531,13 +531,25 @@ $legacy-support-for-ie8: true;
 
           <section>
             <h4>Partial Structure</h4>
-            <ul>
-              <li>Base - Non-css producing files, always added. Variables, mixins, and functions.</li>
-              <br>
-              <li>Global - Side-wide css. Typeface, forms, <i>extendables</i>.</li>
-              <br>
-              <li>Design - Everything else. </li>
-            </ul>
+            <pre>style.scss
+maintenance.scss
+print.scss
+partials
+ |--> base
+ |     |--> _base.scss
+ |     |--> _functions.scss
+ |     |--> _mixins.scss
+ |     |--> _variables.scss
+ |--> global
+ |     |--> _global.scss
+ |     |--> _extendables.scss
+ |     |--> _defaults.scss
+ |     |--> _type.scss
+ |     |--> _forms.scss
+ |--> design
+       |--> _design.scss
+       |--> EVERYTHING ELSE!!!
+            </pre>
           </section>
 
           <section>
