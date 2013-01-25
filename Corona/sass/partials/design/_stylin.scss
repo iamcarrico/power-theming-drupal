@@ -1,0 +1,54 @@
+/**
+ * This styles stuff. wooooooo!!!
+ */
+
+#main {
+  @include container;
+  @include susy-grid-background;
+
+  #right {
+    @include span-columns(5 omega);
+  }
+
+  #content {
+
+    @include span-columns(12);
+    background-color: yellow;
+
+    @include respond-to('small') {
+      @include span-columns(10);
+      //background-color: purple;
+    }
+
+    @include respond-to('medium only') {
+      background-color: salmon;
+    }
+
+    @include respond-to('large') {
+
+      @include span-columns(7);
+      background-color: red;
+    }
+
+
+
+    .region-content {
+      @include span-columns(4, 7);
+      background-color: blue;
+    }
+
+  }
+
+  aside {
+    @include span-columns(4 omega);
+    background-color: green;
+  }
+
+
+  .svg & {
+    background-color: pink;
+  }
+
+
+}
+
